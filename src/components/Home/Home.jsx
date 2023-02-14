@@ -13,7 +13,7 @@ function Home() {
     useEffect(() => {
         const fetchMovies = async () => {
             const searchKey = search ? search : "Thor";
-            const res = await movieApi.get(`?apikey=${ApiKey}&s=${searchKey}&type=movie`)
+            const res = await movieApi.get(`?apikey=${ApiKey}&s=${searchKey}*&type=movie`)
 
             setTimeout(() => {
                 dispatch(addMovie(res.data.Search))
@@ -21,12 +21,12 @@ function Home() {
         }
 
         fetchMovies();
-    }, [])
+    }, [search])
 
     return (
         <div>
             <h3 style={{ margin: "1rem 0" }}>Movies</h3>
-            <input type="text" placeholder='Search...' />
+            <input type="text" placeholder='Search...' onChange={e => setSearch(e.target.value)} />
             <MovieListing />
         </div>
     )
